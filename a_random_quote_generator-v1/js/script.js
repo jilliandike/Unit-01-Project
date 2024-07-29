@@ -53,7 +53,7 @@ const randomNumber = Math.floor(Math.random() * 5);
 // 2. Use the random number variable and bracket notation 
   // to grab a random object from the `quotes` array, and 
   // store it in a variable
-const getRandomNumber = quotes[randomNumber];
+  const getRandomNumber = quotes[randomNumber];
 
   // 3. Return the variable storing the random quote object
   console.log(getRandomNumber);
@@ -67,39 +67,43 @@ const getRandomNumber = quotes[randomNumber];
 function printQuote() {
   // 1. Create a variable that calls the getRandomQuote() 
   // function
-const newQuote = getRandomQuote();
+let newQuote = getRandomQuote(quotes);
 
   // 2. Create a variable that initiates your HTML string with 
   // the first two <p></p> elements, their classNames, 
   // and the quote and source properties, but leave off 
   // the second closing `</p>` tag for now
-const html = `[
-  <p class= "quotes">randomQuote.quote
-  <p class= "source">randomQuote.source
-]`
+let html = `
+  <p class= "quote">${newQuote.quote}
+  <p class= "source">${newQuote.source}
+`
   // 3. Use an if statement to check if the citation property 
   // exists, and if it does, concatenate a <span></span> 
   // element, appropriate className, and citation property 
   // to the HTML string
-  if (quotes.citation){
-    html += <span class='randomQuote.citation'></span>;
+  if (newQuote.citation){
+    html += `<span class="citation">${newQuote.citation}</span>`;
   }
 
   // 4. Use an if statement to check of the year property exists, 
   // and if it does, concatenate a <span></span> element, 
   // appropriate className, and year property to the HTML 
   //string
-  if (quotes.year){
-    html += <span class='randomQuote.year'></span>;
+  if (newQuote.year){
+    html += `<span class="year">${newQuote.year}</span>`;
+  }
+
+  if (newQuote.about){
+    html += `<br><span class="about">${newQuote.about}</span>`;
   };
 
   // 5. After the two if statements, concatenate the closing </p> 
   // tag to the HTML string
-html += `</p>.`
+html += `</p>`
 
   // 6. set the innerHTML of the quote-box div to equal the 
   // complete HTML string
-  main.innerHTML += html;
+  document.getElementById('quote-box').innerHTML = html
 }
 
 
