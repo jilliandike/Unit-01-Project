@@ -3,13 +3,10 @@ Treehouse FSJS Techdegree:
 project 1 - A Random Quote Generator
 ******************************************/
 
-// For assistance: 
-  // Check the "Project Resources" section of the project instructions
-  // Reach out in your Slack community - https://treehouse-fsjs-102.slack.com/app_redirect?channel=chit-chat
-
-/*** 
- * `quotes` array 
-***/
+/* This is an array of quotes to display. 
+They all include a quote and a source. 
+Some also include a citation, year, and/or about property.
+*/
 const quotes = [
   {
     quote: "Two roads diverged in a wood, and I—I took the one less traveled by, And that has made all the difference.",
@@ -40,72 +37,49 @@ const quotes = [
     about: "Booker Taliaferro Washington was an American educator, author, and orator."
   }
 ];
-console.log(quotes);
 
-/***
- * `getRandomQuote` function
-***/
+/**
+ * Returns a random quote from the quotes array.
+ *
+ * @param {number} randomNumber - A random number between 0 and 5.
+ * @param {string} getRandomNumber - Uses the random number to grab an object from the 'quotes' array.
+ * @return {string} - Returns the random quote from the array.
+ */
 function getRandomQuote() {
-  // 1. Create a variable that generates a random number
-  // between zero and the last index in the `quotes` array
-const randomNumber = Math.floor(Math.random() * 5);
-  
-// 2. Use the random number variable and bracket notation 
-  // to grab a random object from the `quotes` array, and 
-  // store it in a variable
+  const randomNumber = Math.floor(Math.random() * 5);
   const getRandomNumber = quotes[randomNumber];
-
-  // 3. Return the variable storing the random quote object
-  console.log(getRandomNumber);
   return getRandomNumber
 } getRandomQuote();
 
 
-/***
- * `printQuote` function
-***/
+/**
+ * Displays a new quote every time the user clicks
+ * "Show another quote" button on the page.
+ *
+ * @param {string} newQuote - Calls the getRandomQuote function.
+ * @param {string} html - Initiates the html string.
+ * @return {string} - Returns the quote, source, and other applicable classes.
+ */
 function printQuote() {
-  // 1. Create a variable that calls the getRandomQuote() 
-  // function
-let newQuote = getRandomQuote(quotes);
+  let newQuote = getRandomQuote(quotes);
+  let html = `
+    <p class= "quote">${newQuote.quote}
+    <p class= "source">${newQuote.source}
+    `
+    if (newQuote.citation){
+      html += `<span class="citation">${newQuote.citation}</span>`;
+    }
 
-  // 2. Create a variable that initiates your HTML string with 
-  // the first two <p></p> elements, their classNames, 
-  // and the quote and source properties, but leave off 
-  // the second closing `</p>` tag for now
-let html = `
-  <p class= "quote">${newQuote.quote}
-  <p class= "source">${newQuote.source}
-`
-  // 3. Use an if statement to check if the citation property 
-  // exists, and if it does, concatenate a <span></span> 
-  // element, appropriate className, and citation property 
-  // to the HTML string
-  if (newQuote.citation){
-    html += `<span class="citation">${newQuote.citation}</span>`;
-  }
+    if (newQuote.year){
+      html += `<span class="year">${newQuote.year}</span>`;
+    }
 
-  // 4. Use an if statement to check of the year property exists, 
-  // and if it does, concatenate a <span></span> element, 
-  // appropriate className, and year property to the HTML 
-  //string
-  if (newQuote.year){
-    html += `<span class="year">${newQuote.year}</span>`;
-  }
-
-  if (newQuote.about){
-    html += `<br><span class="about">${newQuote.about}</span>`;
-  };
-
-  // 5. After the two if statements, concatenate the closing </p> 
-  // tag to the HTML string
-html += `</p>`
-
-  // 6. set the innerHTML of the quote-box div to equal the 
-  // complete HTML string
-  document.getElementById('quote-box').innerHTML = html
+    if (newQuote.about){
+      html += `<br><span class="about">${newQuote.about}</span>`;
+    };
+    html += `</p>`
+  document.getElementById('quote-box').innerHTML = html;
 }
-
 
 /***
  * click event listener for the print quote button
